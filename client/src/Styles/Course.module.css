@@ -1,0 +1,31 @@
+.header{
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+.student_information{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center; 
+    margin: 20px;
+    border-bottom: 2px dashed black;
+}
+.student_information>div{
+    margin: 10px;
+}
+.main_content{
+ text-align: center;
+}
+.main_content_header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px;
+}
+.main_content_table>table{   
+    text-align: center;
+} 
+.table_bottom{ 
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0px;
+    text-align: center 
+}

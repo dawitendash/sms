@@ -1,0 +1,139 @@
+  .registration h4, .ASsignTeacherhead{
+    font-weight: normal;
+    color: rgb(110, 108, 108); 
+    font-weight: bold;
+    margin: 0;
+    border-bottom: 1px solid rgb(37, 37, 37); 
+ }
+ .ASsignTeacherhead{
+   margin-bottom: 40px;
+ }
+ .flex, .assignTeacherFlex{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: normal;
+    color: rgb(71, 69, 69);
+ }
+ .assignTeacherFlex{
+   display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    font-weight: normal;
+    color: rgb(71, 69, 69);
+  
+ }
+ .fname , .lname, .university_id, .batch, .gba, .college, .department,.location,.depratment_name, .department_id, .max_capacity, .min_capacity,.total_course,.total_teacher,
+ .CourseName,.CourseCode,.CreditHour,.Lab,.Tutorial,.ActiveBatch,.ActiveSemister,.College,.Department, .College, .disabled, .region, .entranceMark, .experince ,.TeacherId,.CourseList{
+    height: 8rem;
+ }
+ .fname label, .lname label, .university_id label, .gpa label, .batch label, .college label, .department label , .role label, .location label ,.depratment_name label , .department_id label ,.max_capacity label, .min_capacity label, .total_course label ,.total_teacher label,
+  .CourseName label,.CourseCode label,.CreditHour label,.Lab label,.Tutorial label,.ActiveBatch label,.ActiveSemister label,.College label,.Department label ,.College label, .disabled label, .gender label, .region label ,.entranceMark label, .experince label ,.TeacherId label,.CourseList label{
+    display: block;
+    margin-top: 10px;
+ }
+ .fname input ,.lname input, .university_id input, .gpa input, .batch input ,.college input , .department input, .role input ,.location input, .department_id input, .depratment_name input, .max_capacity input, .min_capacity input, .total_course input, .total_teacher input,
+ .CourseName input,.CourseCode input,.CreditHour input,.Lab input,.Tutorial input,.ActiveBatch input,.ActiveSemister input,.Department select, .College select, .region select, .entranceMark input, .experince input ,.TeacherId select, .CourseList select {
+    border-radius: 0px;
+    margin-left: 0px;
+    width: 25rem;
+    background-color: #fff;
+    border: 1.5px solid rgb(231, 228, 228);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    color: rgb(94, 90, 90);
+ }
+.AssignBtn{
+ width: 25rem;
+  margin-top: 50px;
+ }
+
+ .fname input::placeholder, .lname input::placeholder, .university_id input::placeholder ,.gpa input::placeholder,.college input::placeholder , .department input::placeholder, .batch input::placeholder, .role input::placeholder, .location input::placeholder,
+ .CourseName input::placeholder,.CourseCode input::placeholder,.CreditHour input::placeholder,.Lab input::placeholder,.Tutorial input::placeholder,.ActiveBatch input::placeholder,.ActiveSemister input::placeholder,.College input::placeholder,.Department select::placeholder ,.College select::placeholder , .entranceMark input::placeholder, .experince input::placeholder{
+    color: rgb(203, 203, 203);
+    font-size: 12px;  
+ }
+ .Department select, .College select ,.region select , .TeacherId select, .CourseList select{
+   padding: 10px;
+} 
+
+ .TeacherId select, .CourseList select{
+   width: 20rem;
+    margin-left: 30px;
+ }
+ .Department label, .College label, .region label ,.TeacherId label, .CourseList label{
+   margin-bottom: 15px;;
+ }
+ .btn {
+    margin-top: 20px;
+    font-size: 12px;
+ }
+ .btn button[type=submit]{
+    width: 4rem;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 14px;
+ }
+ .AssignBtn button[type=submit]{
+   width: 4rem;
+   border: none;
+   border-radius: 2px;
+   margin-top: 0;
+ }
+p{
+    margin: 10px;
+ }
+ .assignform{
+ width: 20rem;
+ overflow-X: none;
+}
+.error, .assignError{
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+} 
+.assignError{
+   margin-left: 30px;;
+}
+.register{
+   color: green;
+} 
+.loader{
+  border: 3px solid black;
+  border-bottom: 3px dashed black ;
+  border-radius: 50%;
+  width:15px;
+  height: 15px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+ margin-right: 2px;
+} 
+.disabled, .gender{
+   height: 6rem;
+}
+.disabled input, .gender input{
+   width:10px;
+}
+
+@keyframes spin {
+   10%{transform : rotate(33deg);}
+   100%{transform: rotate(360deg);}
+}
+
+
+
+
+
+/*medium*/
+@media screen and (max-width: 768px) { 
+  .flex{
+    display: grid;
+    grid-template-columns: 1fr;
+    font-weight: normal;
+    color: rgb(71, 69, 69); 
+ }
+ .fname input ,.lname input, .university_id input, .gpa input, .batch input ,.college input , .department input, .role input{
+    width: flex;
+ } 
+}
+ 
+/*medium*/
+ 

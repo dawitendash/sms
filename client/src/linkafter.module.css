@@ -1,0 +1,124 @@
+.links{
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    /* #0056b3  
+    #20c997
+    #001f3f 
+    #28a745*/
+    background-color:#0056b3;
+    height: 5rem;
+    margin:1px; 
+    position: fixed;
+    width:100%;
+    border: 2px solid grey;
+}
+.all_anchor_tag{
+    padding: 10px;
+    padding-top: 20px;
+    display: flex;
+    margin-left: 30px;
+}
+.ancoh_tag{
+ margin-right: 30px;
+ font-weight: bold;
+ color: black;
+ text-decoration: none;
+}
+.pro_img{
+    height: 30px;
+    width: 30px;
+    border-radius: 25px;
+    border-bottom: 1px solid gray;
+}
+.profile{ 
+    background-color: rgb(190,190,190);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    margin-right: 10px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    width: 150px;
+} 
+.information{
+    margin-top: 20px;
+    margin-left: 10px;
+} 
+.logout, .langu, .detailInfo{
+    font-weight:bold;
+    font-size: 20px;
+    margin-right: 10px;
+} 
+.times_container{
+    background-color: rgb(234,178,190);
+    height: 4rem; 
+    width: auto;
+    margin: -1.1rem;
+} 
+ .times{
+   float: right; 
+ }
+ .details{
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+ }
+ .details div:hover{ 
+ background-color: rgb(189,190,190);
+ margin: 0 -1.2rem;
+ }
+ .notificationdiv{
+    border: 1px solid grey;
+    width: 5rem;
+   text-align: center;
+    padding-top: 5px;
+    padding-bottom: ;
+ }
+ .notify_icon{
+    margin-left: 10px;
+    margin-right: inherit;
+ }
+ .header{
+    text-align: center;
+    margin-bottom: 5px;
+ }
+ .icon{
+ margin-right: 3px;
+ }
+ .notify{
+    font-size: 12px;
+ }
+ .refresh:hover{
+    color: red;
+    font-weight: bold
+ }
+ /*userprofile*/
+.userprofile {
+    background-color: rgb(179, 213, 228);
+    height: 5rem;
+    margin: -20px; 
+    text-align: center;
+    
+}
+.username{ 
+    float: center;
+    margin-left: 90px;
+    padding-top: 50px;
+}
+ .name{
+    background-color: #2e2e2e; 
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding-top: 3px;  
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    
+   
+}
+
+
+
+ /*userprofile*/

@@ -1,0 +1,141 @@
+ 
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    height:   56rem;
+    text-align: center;
+    justify-content: center;
+    text-align: center;
+    width: 560px;
+    margin: 10px;
+    box-shadow:10px 5px 10px 5px rgba(0,0,0,0.5);
+    background-color: aliceblue;
+     color: black;
+    font-weight: bold;
+    margin-top: 50px;
+    border-radius: 5px;
+    padding:20px;
+      margin-left: 28%; 
+
+
+   
+    
+     
+    /* 
+   
+    
+     
+   
+    text-align: center;
+    margin: 10px;
+    box-shadow:10px 5px 10px 5px rgba(0,0,0,0.5);
+    color: black;
+    font-weight: bold;
+    margin-top: 30px;
+    border-radius: 10px;
+    
+    padding-top: 50px; */
+    
+ }
+ #phone, #email {
+    margin-left:48px;
+ }
+ 
+.button button[type='submit']{
+    background-color: blue;  
+    margin-left: 22px;
+    border:none;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    width: 200px;
+    font-weight: bold;
+}
+.button button:hover{
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+ 
+.icon{
+    margin-right: 5px;
+    margin-bottom: 0;
+    color: blue;
+}
+.checkbox{
+    width: 10px;
+}
+.have_account{
+    margin-top: 10px;
+}
+.agree{
+    margin-bottom: 10px;
+}
+
+.ancoh_tag{
+ color: black;
+ margin-left: 5px;
+ text-decoration: none;
+ 
+}
+.ancoh_tag:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}
+.fname, .lname, .email, .phone, .username, .password ,.university_id{
+    height: 5rem;
+}
+.fname input, .lname input, .email input, .phone input, .username input, .password input, .university_id input{
+     margin-left: 10px;
+   border: none;
+   padding: 10px; 
+   background-color:  rgb(152, 162, 174);
+   border-radius: 20px;
+   color: white;
+   border: 0.8px solid gray;
+   margin: 0;
+   margin-left: 8px;
+   margin-right: 8px;
+    border-radius: 0px; 
+  width: 300px; 
+    background-color: #fff;
+    border: 1.5px solid rgb(31, 37, 78);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    color: rgb(94, 90, 90);
+}
+.errors{
+    color:red;
+}
+.loader{
+  border: 3px solid green;
+  border-bottom: 3px dashed green ;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+ margin-right: 2px;
+}
+
+@keyframes spin {
+   10%{transform : rotate(33deg);}
+   100%{transform: rotate(360deg);}
+}
+#err_message{
+    color: red;
+    font-weight: bold;
+}
+ .err{
+    color: red;
+    font-weight: bold;
+    font-size: 20px; 
+    background-color:black;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0px 7px;
+    padding-top: 0;
+    margin-right: 10px;
+}

@@ -1,0 +1,81 @@
+/* .container{
+    margin-top: 5.3rem;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+   margin-left: 10rem;
+   height: 30rem;
+   padding: 20px;
+   background-color:#f8f9fa;
+} 
+div span{
+    font-weight: normal;
+    color: grey;
+}
+
+ .flex{
+     display: flex;
+    flex-direction: row;
+ }
+
+.student, .teacher, .green, .blue{
+   
+    height: 7rem;
+    width: 13rem;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+}
+.student{
+    background-color: skyblue;
+      display:flex;
+     flex-direction:column;
+}
+.student div{
+     margin-bottom: 20px; 
+}
+.student .icon{ 
+      float:right; 
+      font-size: 1.7rem;
+      margin-right: 10px;
+}
+.teacher{
+    background-color: orange;
+    display:flex;
+    flex-direction:column;
+}
+.teacher div{
+     margin-bottom: 20px;
+}
+.teacher .icon{ 
+     float:right; 
+     font-size: 1.7rem;
+      margin-right: 10px;
+}
+.green{
+    background-color: green;
+    display:flex;
+    flex-direction:column;
+}
+.green div{
+     margin-bottom: 20px;
+}
+.green .icon{ 
+     float:right; 
+     font-size: 1.7rem;
+      margin-right: 10px;
+}
+.blue{
+    background-color: blue;
+    display:flex;
+    flex-direction:column;
+}
+.blue div{
+     margin-bottom: 20px;
+}
+.blue .icon{ 
+     float:right; 
+     font-size: 1.7rem;
+      margin-right: 10px;
+} */

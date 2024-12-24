@@ -1,0 +1,73 @@
+.links{
+    text-align: right;
+    height:auto;
+    border: none;
+  
+}
+.links ul{
+    display: inline;
+    margin-right:30px ; 
+}
+.links ul li{
+    list-style-type: none;
+    display: inline;
+    margin-right: 30px;  
+}
+ img{
+ float: left;
+ width: 80px;
+ height: 40px;
+  padding: 5px;    
+} 
+.all-anchor-tag{
+    background-color: #346c88;
+    height: 50px;
+      padding-top: 10px;
+    
+}
+.links .ancoh-tag{
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 30px;
+  font-weight: bold; 
+}
+.ancoh-tag:hover{
+ color:rgb(205, 41, 41); 
+}
+.not-found{
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+}
+.icon{
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.red{
+  color: red;
+  font-weight: bold;
+}
+.details{
+  width: 10rem;
+}
+
+
+
+/*bootstrap class*/
+/*outside navigation*/
+.navbar{
+color: black;
+background-color: #003366;
+}
+.nav-link{
+  color: white;
+  font-weight: bold;
+}
+.nav-link:hover{
+  transform: skewy(1deg);
+ 
+
+}
+
+ 

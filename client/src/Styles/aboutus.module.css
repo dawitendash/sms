@@ -1,0 +1,19 @@
+.container{
+    
+    text-align: left;
+    display: flex;
+    margin:20px 50px;
+    
+    
+   
+    
+}
+.content{
+    font-weight: normal;
+    font-size: medium;
+    display: flex;
+     text-align: center;
+}
+.container>div{
+    margin-right: 10px;
+}

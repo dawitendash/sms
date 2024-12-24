@@ -1,0 +1,42 @@
+.flex, .innerflex{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+    gap: 20px;
+}
+.flex .lable{
+text-align: center;
+margin-left: 20px;
+}
+ 
+.lable{
+    margin-left: 100px;
+}
+.name{
+   width: 20px;
+   
+}
+.name input, .Fullname input ,.id input , .Assiment input , .Mid input, .Final input {
+    width: 100px;
+    border-radius: 0px;
+    margin-left: 0px; 
+    background-color: #fff;
+    border: 1.5px solid rgb(201, 228, 228);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    color: rgb(94, 90, 90);
+}
+.Assiment input , .Mid input, .Final input {
+    width: 50px;
+} 
+.id input{
+    width: 100px;
+}
+.Fullname input {
+    width: 170px;
+}
+
+
+.btn button{
+    width: 4rem;
+    border-radius: 0px;
+}

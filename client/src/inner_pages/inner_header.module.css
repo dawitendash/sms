@@ -1,0 +1,21 @@
+.links{
+    color: black;
+    background-color: white;
+    height: 4rem;
+}
+
+.all_anchor_tag{
+    padding: 10px;
+    padding-top: 20px; 
+    float: right;
+}
+.ancoh_tag{
+    margin-right: 30px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+.ancoh_tag:hover{
+  color: blue;
+  transition: color 0.5s;
+}

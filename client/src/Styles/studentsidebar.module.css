@@ -1,0 +1,33 @@
+#sidebrand{
+    position: sticky;
+    background-color: #263043; 
+   color: wheat; 
+   box-shadow: 10px 10px 10px rgba(0,0,0,0.3);
+   position: fixed;
+   top: 3px;
+   z-index: 10;
+   width: 16rem;
+}
+.person_icon{ 
+    font-size: 30px;
+    background-color: green;
+    border: 1px solid white; 
+    border-radius: 2px;
+    padding: 5px;
+}
+.role{
+    font-size : 13px; 
+    margin-top: 20px;
+     
+}
+.active{
+    background-color: red;
+    border: 1px solid red;
+}
+ 
+
+.profileImage{ 
+    border-radius: 50%;
+    height: 50px ;
+    width: 50px;
+}

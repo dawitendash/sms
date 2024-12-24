@@ -1,0 +1,151 @@
+  .container{
+   margin-top: 5.3rem;
+   color: black;
+   font-weight: bold;
+   display: flex;
+   flex-direction: column;
+   margin-left: 10rem;
+   border: 1px solid grey;
+   height: 30rem;
+   padding: 20px;
+   background-color: rgba(255,255,255,0.8);
+  }
+  table .header{
+    margin-left: 100px;
+    background-color: white;
+    color: black;
+    font-weight: bold; 
+  }
+ table tr td{
+    margin-left: 30px;
+    border-collapse: collapse;
+   border: 0.4px solid grey;
+} 
+.page_header{
+    text-align: center;
+    color: black;
+}
+ 
+button{ 
+    border: none;
+    padding: 3px;
+    margin-right: 2px;   
+    color: white;
+    margin: 5px 2px;
+    font-size: 13px;
+}
+button:hover{
+ box-shadow: 5px 5px 10px rgba(0,0,0,0.5);  
+ transition: 0.7s;
+ border-radius: 5px;
+}
+.update{
+    background-color: blue; 
+}
+.delete{
+   background-color: red;
+}
+.access{
+    margin-top: 6rem;
+    color: red;
+    font-weight: bold;
+}
+
+/*modal*/
+.times{
+    float: right;
+}
+.updateform{
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
+.updateform input[name="gpa"]{
+    margin-left: 70px;
+}
+.updateform input[name="bacth"]{
+    margin-left: 60px;
+}
+.updateform input[name="college"]{
+    margin-left: 43px;
+}
+.updateform input[name="department"]{
+    margin-left: 10px;
+}
+.updateform input[name="university_id"]{
+ margin-left: 10px;
+}
+ 
+.updateform input[name="fullname"]{
+ margin-left: 2rem;
+}
+.btn {
+    text-align: center;
+    margin-top: 1rem;
+}
+.btn .submit{
+    background-color: blue;
+    width: 10rem;
+    
+}
+#table{
+    font-size: 13px;
+}
+/*bootstrap class */
+/*search*/
+.search input{
+     border-radius: 0px;
+    margin-left: 0px;
+    width: 25rem;
+    background-color: #fff;
+    border: 1.5px solid rgb(0, 0, 228);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    color: rgb(94, 90, 90);
+}
+.search input::placeholder{
+    color: rgb(203, 203, 203);
+    font-size: 12px;
+}
+.DisplayAssignedValue{
+    width: 85%;
+}
+/*view detail style*/
+.viewDetailHead{
+   font-size: 20px;
+   font-weight: normal;
+   text-align: center;
+   margin-bottom: 10px;
+   border-bottom: 1px solid  black
+
+}
+.detailInfoContainer div{
+    font-size:17px; 
+    font-weight: 700;
+    margin-bottom: 20px; 
+    
+}
+.detailInfoContainer div span{
+  color: rgb(94, 90, 90);
+  margin-left: 30px;
+  font-weight: normal;
+}
+  .icon{
+      font-size: 12px;
+     }
+
+
+
+
+     /* for sort items*/
+     .sortdropdown{
+        position: absolute;
+        background-color: #001f3f;
+        height: 5rem;
+        width: 5rem;
+        
+     }
+     .sortdropdown button{
+        font-size: 12px;
+        display: block;
+     }

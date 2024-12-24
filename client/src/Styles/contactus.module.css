@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+     text-align: center;
+    color: white;
+   
+}
+ 
+.container div{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+      
+    
+}
+.container .instagram{
+ background-color: green;
+}
+.insta_icon{
+ margin-left: 30px;
+ 
+}
+.email_icon, .youtube_icon{
+    margin-left: 80px;
+}
+.fb_icon{
+   
+    margin-left: 50px;
+}
+.map_icon{
+    margin-left: 115px;
+}
+.telegram_icon{
+    margin-left: 40px;
+}
+span{
+    margin-left: 10px;
+}
+ 

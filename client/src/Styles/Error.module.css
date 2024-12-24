@@ -1,0 +1,9 @@
+.page {
+    float: left;
+    margin: 50px;
+}
+.errorIcon{
+    margin-left: 10px;
+    font-size: 5rem;
+    color: red;
+}
