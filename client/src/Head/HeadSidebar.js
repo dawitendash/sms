@@ -130,8 +130,7 @@ function HeadSidebar({ opensidebartoggle, opensidebar }) {
                             </Link>
                         </li>
                         <li className='sidebar-list-item' onClick={() => {
-                            localStorage.removeItem('username');
-                            localStorage.removeItem('login')
+                            localStorage.clear(); 
                             window.location.reload()
                         }} >
                             <Link>

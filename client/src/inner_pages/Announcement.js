@@ -20,35 +20,33 @@ function Announcement() {
     const handleSubmit = async (values) => {
         const { title, time, message } = values;
         console.log({ title, time, message })
-        const url = 'http://localhost:5000/announce'
+        const url = 'http://localhost:8080/demo_war_exploded/Announce'
+        setproccesing(true);
         try {
-            await axios.post(url, { title, time, message }).then(res => {
-                if (res.data.register) {
-                    setproccesing(true);
+            const res = await axios.post(url, { title, time, message })
+            console.log(res)
+            if (res.data.register) {
+                setTimeout(() => {
+                    setproccesing(false)
+                    setsuccess('Send Successfully')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setsuccess('Send Successfully')
-                        setTimeout(() => {
-                            setsuccess('')
-                        }, 2000)
-                    }, 4000)
-                } else {
-                    setproccesing(true);
+                        setsuccess('')
+                    }, 2000)
+                }, 4000)
+            } else {
+                setproccesing(true);
+                setTimeout(() => {
+                    setproccesing(false)
+                    setErr('Message is already distributed  ')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setErr('Message is already distributed  ')
-                        setTimeout(() => {
-                            setErr('')
-                        }, 4000)
+                        setErr('')
                     }, 4000)
-                }
-            })
+                }, 4000)
+            }
         } catch (error) {
             setErr('Check the network');
         }
     };
-
-
     if (user && Role === 'admin') {
         return (
             <>

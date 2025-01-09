@@ -36,7 +36,7 @@ function DisplayDepartmentStudent() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/inner_pages/display_student_information `)
+        fetch(`http://localhost:8080/demo_war_exploded/student`)
             .then(res => res.json())
             .then(data => setdata(data))
             .catch(err => console.log(err));
@@ -92,7 +92,7 @@ function DisplayDepartmentStudent() {
                                             <td>
                                                 {Role === 'head' ? (
                                                     <>
-                                                        <button onClick={() => openmodal(d)} className="btn btn-primary">
+                                                        <button onClick={() => openmodal(d)} className="btn btn-primary ">
                                                             <BsEye className={style.icon} />
                                                         </button>
                                                         <button onClick={() => openViewGrade(d)} className="btn btn-primary">

@@ -14,8 +14,9 @@ function Verification() {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
     const [err, setErr] = useState('');
-    const [timeLeft, setTimeLeft] = useState(60);
+    const [timeLeft, setTimeLeft] = useState(300);
     const inputRefs = useRef([]);
+    const email = localStorage.getItem('email');
     useEffect(() => {
         if (timeLeft === 0) {
             alert("OTP has expired!");
@@ -30,33 +31,31 @@ function Verification() {
     }, [timeLeft, navigate]);
     const handleSubmit = async (values) => {
         const enteredOtp = values.code1 + values.code2 + values.code3 + values.code4 + values.code5;
-        const email = localStorage.getItem('email');
+        const { code1, code2, code3, code4, code5 } = values;
         console.log(enteredOtp)
         console.log(email)
-        await axios.post(`http://localhost:5000/login/verifyOtp?email=${email}`, { values }).then((res) => {
-            console.log("may be")
-            console.log(res)
-            try {
-                if (res.data.verify) {
-                    localStorage.setItem('login', true);
-                    navigate('/inner_pages/dashboard');
-                    window.location.reload();
-                } else {
-                    setErr(res.data.meg);
-                }
-            } catch (err) {
-                console.log(err)
+        const res = await axios.post(`http://localhost:8080/demo_war_exploded/verfiyOtp?email=${email}`, { code1, code2, code3, code4, code5 }, {
+            method: 'POST',
+            credentials: 'include', // Include cookies in the request
+            headers: {
+                'Content-Type': 'application/json',
             }
         })
-        // console.log(enteredOtp);
-        // if (otp === enteredOtp) {
-        //     localStorage.removeItem('otp');
-        //     localStorage.setItem('login', true);
-        //     navigate('/inner_pages/dashboard');
-        //     window.location.reload();
-        // } else {
-        //     alert("Invalid OTP! Please try again.");
-        // }
+        console.log("may be")
+        console.log(res)
+        try {
+            if (res.data.login) {
+                localStorage.setItem('login', true);
+                navigate('/inner_pages/dashboard');
+                window.location.reload();
+            } else {
+                setErr(res.data.message);
+            }
+        } catch (err) {
+            console.log(err)
+        }
+
+
     };
     const handleChange = (index, setFieldValue) => (e) => {
         const { value } = e.target;
@@ -72,7 +71,6 @@ function Verification() {
             inputRefs.current[index - 1].focus();
         }
     };
-
     if (user) {
         return (
             <div className={style.verification_code}  >
@@ -103,8 +101,11 @@ function Verification() {
                             <div className={style.button_container}>
                                 <button type='submit' className='btn btn-primary' disabled={isSubmitting || timeLeft === 0}>Verify</button>
                             </div>
-                            <div className={timeLeft < 10 ? 'last_ten' : 'time_counter'}>
-                                Time left: {timeLeft}s
+                            <span> Check this email : <span className="text-primary">{email}</span></span>
+                            <div className='time_counter p-1'>
+                                your otp is expireds after:
+                                <span className={timeLeft < 10 ? 'last_ten' : "text-primary"}>{timeLeft}
+                                </span> seconds
                             </div>
                         </Form>
                     )}
@@ -116,3 +117,15 @@ function Verification() {
     }
 }
 export default Verification;
+
+
+
+// console.log(enteredOtp);
+// if (otp === enteredOtp) {
+//     localStorage.removeItem('otp');
+//     localStorage.setItem('login', true);
+//     navigate('/inner_pages/dashboard');
+//     window.location.reload();
+// } else {
+//     alert("Invalid OTP! Please try again.");
+// }

@@ -28,10 +28,20 @@ const UpdateDepartmentInformationModal = ({ isOpen, onRequestClose, ModalData })
     const handleUpdate = async (values) => {
         const { department_name, min_capacity, max_capacity, total_course, total_teacher, location, college } = values
         console.log({ department_name, min_capacity, max_capacity, total_course, total_teacher, location, college })
-        await axios.put('http://localhost:5000/updateDepartmentValues' + ModalData.department_id, { department_name, min_capacity, max_capacity, total_course, total_teacher, location, college }).then(res =>
-            console.log(res.data.Message)
-        )
+        try {
+            const res = await axios.put(`http://localhost:8080/demo_war_exploded/updateDepartmentInfo?id=${ModalData.department_id}`, { department_name, min_capacity, max_capacity, total_course, total_teacher, location, college })
+            console.log(res)
+            if (res.data.update) {
+                window.alert("update Succussfully")
+                onRequestClose()
 
+            } else {
+                window.alert("failed to update")
+                onRequestClose()
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
     return (
         <div className={style.modal}>
@@ -64,7 +74,7 @@ const UpdateDepartmentInformationModal = ({ isOpen, onRequestClose, ModalData })
                     onSubmit={handleUpdate}
                 >{({ isvalid, setFieldValue, values }) => (
                     <Form className={styles.updateform}>
-                        <h4 className={style.editHead}> update department Detail:{ModalData.department_id} </h4>
+                        <h4 className={style.editHead}> update department Detail:<spna className='text-info'>{ModalData.department_id}</spna> </h4>
                         <div className={styles.fname}>
                             <label htmlFor="department_name">Department Name:</label>
                             <Field type="text" name="department_name" ></Field>
@@ -101,7 +111,7 @@ const UpdateDepartmentInformationModal = ({ isOpen, onRequestClose, ModalData })
                             <Field type="text" name="location" ></Field>
                         </div>
                         <div className={styles.btn}>
-                            <button type="submit" className="btn btn-primary" onClick={onRequestClose.closemodal}>Update</button>
+                            <button type="submit" className="btn btn-primary" >Update</button>
                         </div>
                     </Form>
                 )}</Formik>

@@ -13,8 +13,8 @@ const initialValues = {
   experince: '',
   level: '',
   birth_date: '',
-  College: '',
-  Department: '',
+  college: '',
+  department: '',
   role: '',
 }
 function TeacherRegistartion() {
@@ -40,40 +40,43 @@ function TeacherRegistartion() {
   }, [])
   const handleSubmit = async (values) => {
     console.log('hello')
-    const { fname, lname, gender, university_id, experince, level, birth_date, College, Department, role } = values;
-    const url = "http://localhost:5000/inner_pages/TeacherRegistartion";
-    console.log({ fname, lname, gender, university_id, experince, level, birth_date, College, Department, role })
+    const { fname, lname, gender, university_id, experince, level, birth_date, college, department, role } = values;
+    const url = "http://localhost:8080/teachers";
+    console.log({ fname, lname, gender, university_id, experince, level, birth_date, college, department, role })
+    setproccesing(true);
     try {
-      await axios.post(url, values).then(res => {
-        setproccesing(true);
-        if (res.data.register) {
-          console.log('success');
+      const res = await axios.post(url, values, {
+        headers: {
+        "Content-Type": "application/json",
+      }})
+      console.log(res)
+      if (res.data.status) {
+        console.log('success');
+        setTimeout(() => {
+          setproccesing(false)
+          setsuccess('Register Successfully')
           setTimeout(() => {
-            setproccesing(false)
-            setsuccess('Register Successfully')
-            setTimeout(() => {
-              setErr('')
-            }, 2000)
-          }, 4000)
-        } else if (res.data.teacherFullMessage) {
+            setErr('')
+          }, 2000)
+        }, 4000)
+      } else if (res.data.teacherFullMessage) {
+        setTimeout(() => {
+          setproccesing(false)
+          setsuccess('')
+          setErr(`Maximum Teacher Registeration is full in ${department} Department`)
           setTimeout(() => {
-            setproccesing(false)
-            setsuccess('')
-            setErr(`Maximum Teacher Registeration is full in ${Department} Department`)
-            setTimeout(() => {
-              setErr('')
-            }, 4000)
+            setErr('')
           }, 4000)
-        } else {
+        }, 4000)
+      } else {
+        setTimeout(() => {
+          setproccesing(false)
+          setErr('Teacher is Already Exist')
           setTimeout(() => {
-            setproccesing(false)
-            setErr('Teacher is Already Exist')
-            setTimeout(() => {
-              setErr('')
-            }, 2000)
-          }, 4000)
-        }
-      })
+            setErr('')
+          }, 2000)
+        }, 4000)
+      }
     } catch (err) {
       console.log(err)
       setErr('Check the network');
@@ -153,8 +156,8 @@ function TeacherRegistartion() {
                     <ErrorMessage className={style.error} name='birth_date' component='div' />
                   </div>
                   <div className={style.College}>
-                    <label htmlFor='College'>College:</label>
-                    <Field as='select' name='College' onChange={(e) => {
+                    <label htmlFor='college'>College:</label>
+                    <Field as='select' name='college' onChange={(e) => {
                       const selectedCollege = e.target.value;
                       setFieldValue('College', selectedCollege);
                       setFieldValue('Department', ''); // Reset Department when College changes
@@ -167,8 +170,8 @@ function TeacherRegistartion() {
                     <ErrorMessage className={style.error} name="College" component='div' />
                   </div>
                   <div className={style.Department}>
-                    <label htmlFor='Department'>Department:</label>
-                    <Field as='select' name='Department'>
+                    <label htmlFor='department'>Department:</label>
+                    <Field as='select' name='department'>
                       <option value="">---Select College First---</option>
                       {data && data
                         .filter(dept => dept.college === values.College)

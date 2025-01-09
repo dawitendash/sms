@@ -22,11 +22,11 @@
   
  }
  .fname , .lname, .university_id, .batch, .gba, .college, .department,.location,.depratment_name, .department_id, .max_capacity, .min_capacity,.total_course,.total_teacher,
- .CourseName,.CourseCode,.CreditHour,.Lab,.Tutorial,.ActiveBatch,.ActiveSemister,.College,.Department, .College, .disabled, .region, .entranceMark, .experince ,.TeacherId,.CourseList{
+ .CourseName,.CourseCode,.CreditHour,.Lab,.Tutorial,.ActiveBatch,.ActiveSemister,.College,.Department, .College, .disabled, .region,.entranceMark,  .experince ,.TeacherId,.CourseList{
     height: 8rem;
  }
  .fname label, .lname label, .university_id label, .gpa label, .batch label, .college label, .department label , .role label, .location label ,.depratment_name label , .department_id label ,.max_capacity label, .min_capacity label, .total_course label ,.total_teacher label,
-  .CourseName label,.CourseCode label,.CreditHour label,.Lab label,.Tutorial label,.ActiveBatch label,.ActiveSemister label,.College label,.Department label ,.College label, .disabled label, .gender label, .region label ,.entranceMark label, .experince label ,.TeacherId label,.CourseList label{
+  .CourseName label,.CourseCode label,.CreditHour label,.Lab label,.Tutorial label,.ActiveBatch label,.ActiveSemister label,.College label,.Department label ,.College label, .disabled label, .gender label, .region label , .experince label ,.TeacherId label,.CourseList label{
     display: block;
     margin-top: 10px;
  }
@@ -59,8 +59,14 @@
    width: 20rem;
     margin-left: 30px;
  }
- .Department label, .College label, .region label ,.TeacherId label, .CourseList label{
-   margin-bottom: 15px;;
+ .Department label, .College label, .region label ,.TeacherId label, .CourseList label,.entranceMark label{
+   margin-bottom: 15px;
+ }
+ .entranceMark label{
+   margin:5px;
+ }
+ .entranceMark input{
+   margin: 10px;
  }
  .btn {
     margin-top: 20px;
@@ -116,11 +122,7 @@ p{
 @keyframes spin {
    10%{transform : rotate(33deg);}
    100%{transform: rotate(360deg);}
-}
-
-
-
-
+} 
 
 /*medium*/
 @media screen and (max-width: 768px) { 

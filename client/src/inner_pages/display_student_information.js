@@ -6,7 +6,6 @@ import { FaPen, FaSort } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from '../Modals/deleteModal';
 import UpdateStudentInformationModal from '../Modals/UpdateStudentInformationModal';
-import sortByAge from '../Sort/sort';
 import style from '../Styles/display_student_iformation.module.css';
 function Displaystudent() {
   const Navigate = useNavigate();
@@ -24,9 +23,9 @@ function Displaystudent() {
     setModalData(d)
     setopenConfirm(true)
     console.log(d)
-    const updateSudenetvalues = data.filter(student => student.university_id !== d) //to filter out the delete student from the exist students to display 
+    const updateSudenetvalues = data.filter(student => student.university_id !== d)
     setdata(updateSudenetvalues);
-    insertDeleteStudentRecord(d) // used for the record 
+    insertDeleteStudentRecord(d)
     setDeleteMessage('Delete succussfully')
     setTimeout(() => {
       setDeleteMessage('')
@@ -45,7 +44,7 @@ function Displaystudent() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/inner_pages/display_student_information")
+    fetch("http://localhost:8080/students")
       .then(res => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -59,7 +58,9 @@ function Displaystudent() {
       .catch(err => console.log(err));
   }, [])
 
-  const insertDeleteStudentRecord = async (id) => {
+  const insertDeleteStudentRecord = async (d) => {
+
+    const u_id = d.university_id;
     const getDayName = (date) => {
       const option = { weekday: 'long' }
       return new Intl.DateTimeFormat('en-US', option).format(date);
@@ -67,7 +68,7 @@ function Displaystudent() {
     const currentdate = new Date();
     const deleteday = format(currentdate, ' MMMM dd , yyyy');
     const deletetime = getDayName(currentdate);
-    await axios.post('http://localhost:5000/inner_pages/DeletestudentRecord', { id, user, Role, deleteday, deletetime })
+    await axios.post('http://localhost:5000/inner_pages/DeletestudentRecord', { u_id, user, Role, deleteday, deletetime })
   }
   const LimitDisplay = showmore ? data :
     data.slice(0, 5);
@@ -77,14 +78,15 @@ function Displaystudent() {
     || search.lname.toLowerCase().includes(searhItem.toLowerCase())
     || search.college.toLowerCase().includes(searhItem.toLowerCase())
     || search.department.toLowerCase().includes(searhItem.toLowerCase())
-
-
   )
-  console.log(sortByAge)
 
   const sortByName = () => {
     const sorted = [...data].sort((a, b) => a.fname.localeCompare(b.fname));
     setdata(sorted);
+  }
+  const sortByAge = () => {
+    const sored = [...data].sort((a, b) => a.gpa.localeCompare(b.gpa));
+    setdata(sored);
   }
   if (user && Role === 'admin') {
     return (
@@ -134,7 +136,7 @@ function Displaystudent() {
                         <td >{d.university_id}</td>
                         <td >{d.fname} {d.lname}</td>
                         <td >{d.gpa}</td>
-                        <td >{d.bacth}</td>
+                        <td >{d.batch}</td>
                         <td >{d.college}</td>
                         <td >{d.department}</td>
                         <td>

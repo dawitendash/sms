@@ -7,7 +7,7 @@ function DisplayDeleteTeacherRecord() {
     const user = localStorage.getItem('username')
     const [data, setdata] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/inner_pages/DisplayDeleteTeacherRecord')
+        fetch('http://localhost:8080/demo_war_exploded/displayDeleteTeacherRecord')
             .then(res => res.json())
             .then(data => setdata(data))
             .catch(err => console.log(err));
@@ -21,7 +21,7 @@ function DisplayDeleteTeacherRecord() {
     const dayname = getDayName(currentdate);
     const todaydelete = data.filter(d => d.deletedate === dayname)
     const beforeTodayDelete = data.filter(d => d.deletedate !== dayname)
-    
+
     if (user && Role === 'admin') {
         return (
             <>

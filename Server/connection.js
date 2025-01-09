@@ -166,6 +166,14 @@ app.get('/src/login', (req, res) => {
         return res.json({ count: data[0].count });
     });
 });
+//count the notification 
+app.get('/countNotificatin', (req, res) => {
+    const sql = 'SELECT COUNT(*) AS count FROM anounce';
+    db.query(sql, (err, result) => {
+        if (err) return res.json(err)
+        if (result) return res.json({ count: result[0].count })
+    })
+})
 app.get('/inner_pages/DepartmentRegistartion', (req, res) => {
     const sql = "SELECT COUNT(*) AS count FROM department";
     db.query(sql, (err, data) => {

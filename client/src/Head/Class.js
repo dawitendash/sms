@@ -18,7 +18,7 @@ function Class() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/Head/DisplayAddClass')
+    fetch('http://localhost:8080/demo_war_exploded/ClassMake')
       .then(res => res.json())
       .then(Addclass => setAddClass(Addclass))
       .catch(err => console.log(err));
@@ -27,7 +27,6 @@ function Class() {
     fetch('http://localhost:5000/Department/Course')
       .then(res => res.json())
       .then(data => {
-        console.log('Courses:', data); // Log the response
         if (Array.isArray(data)) {
           setCourses(data);
         } else {
@@ -39,29 +38,29 @@ function Class() {
   const handleSubmit = async (values) => {
     const { StartTime, EndTime, Day, Course } = values;
     console.log({ StartTime, EndTime, Day, Course });
-    const URL = 'http://localhost:5000/Head/AddClass';
+    const URL = 'http://localhost:8080/demo_war_exploded/ClassMake';
+    setproccesing(true);
     try {
-      await axios.post(URL, { StartTime, EndTime, Day, Course }).then(res => {
-        if (res.data.AddClass) {
-          setproccesing(true);
+      const res = await axios.post(URL, { StartTime, EndTime, Day, Course })
+      console.log(res)
+      if (res.data.register) {
+        setTimeout(() => {
+          setproccesing(false)
+          setsuccess('Class Add Successfully')
           setTimeout(() => {
-            setproccesing(false)
-            setsuccess('Class Add Successfully')
-            setTimeout(() => {
-              setsuccess('')
-            }, 2000)
-          }, 4000)
-        } else {
-          setproccesing(true);
+            setsuccess('')
+          }, 2000)
+        }, 4000)
+      } else {
+        setproccesing(true);
+        setTimeout(() => {
+          setproccesing(false)
+          setErr('Class is Already Add  ')
           setTimeout(() => {
-            setproccesing(false)
-            setErr('Class is Already Add  ')
-            setTimeout(() => {
-              setErr('')
-            }, 4000)
+            setErr('')
           }, 4000)
-        }
-      })
+        }, 4000)
+      }
     } catch (error) {
       setErr('Check the network');
       console.log(error)

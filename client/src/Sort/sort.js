@@ -1,14 +1,10 @@
 import { useState } from "react";
 
-const useSortByAge = (data) => {
+const UseSortByAge = (data) => {
   const [sortedItems, setSortedItems] = useState([]);
-
-  const sort = () => {
-    const sorted = [...data].sort((a, b) => a.gpa - b.gpa);
-    setSortedItems(sorted);
-  };
-
-  return [sortedItems, sort];
+  const sorted = data.sort((a, b) => a.gpa - b.gpa);
+  setSortedItems(sorted);
+  console.log(sortedItems)
 };
 
-export default useSortByAge;
+export default UseSortByAge;

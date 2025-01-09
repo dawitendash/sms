@@ -32,7 +32,10 @@ const ViewTeacherInformation = ({ isOpen, onRequestClose, ModalData }) => {
                 <div className={style.times_container}>
                     <FaTimes className={style.times} onClick={onRequestClose} />
                 </div>
-                <h4 className={style.viewDetailHead}> Teacher Detail information : {ModalData.University_Id}</h4>
+                <h4 className={style.viewDetailHead}>
+                    <span className='text-info'> Teacher Detail information : {ModalData.University_Id}</span>
+
+                </h4>
                 <div className={style.detailInfoContainer}>
                     <div>
                         Teacher Name :

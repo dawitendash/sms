@@ -14,11 +14,12 @@ function CollegeRegistration() {
   const [Err, setErr] = useState('');
   const [proccecing, setproccesing] = useState(false);
   const handleSubmit = async (values) => {
-    const url = "http://localhost:5000/college_registration";
+    const url = "http://localhost:8080/demo_war_exploded/collgeRegistraion";
     const { college_name, college_id } = values;
     console.log({ college_name, college_id })
     try {
-      await axios.post(url, values).then(res => {
+    const res= await axios.post(url, values)
+    console.log(res)  
         if (res.data.register) {
           setproccesing(true);
           setTimeout(() => {
@@ -37,8 +38,7 @@ function CollegeRegistration() {
               setErr('')
             }, 4000)
           }, 4000)
-        }
-      })
+        } 
     } catch (error) {
       setErr('Check the network');
     }

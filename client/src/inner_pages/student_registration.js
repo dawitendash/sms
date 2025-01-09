@@ -16,7 +16,7 @@ const initialValues = {
   entrance: '',
   gpa: "",
   batch: "",
-  College: "",
+  college: "",
   department: "",
   role: '',
 };
@@ -42,38 +42,39 @@ function StudentRegistration() {
       .catch(err => console.log(err));
   }, [])
   const handleSubmit = async (value) => {
-    const url = "http://localhost:5000/inner_pages/student_registration";
-    const { fname, lname, university_id, birth_date, gender, region, disabled, entrance, gpa, batch, College, department, role } = value;
-    console.log({ fname, lname, university_id, birth_date, gender, region, disabled, entrance, gpa, batch, College, department, role })
+    const url = "http://localhost:8080/students";
+    const { fname, lname, university_id, birth_date, gender, region, disabled, entrance, gpa, batch, college, department, role } = value;
+    console.log({ fname, lname, university_id, birth_date, gender, region, disabled, entrance, gpa, batch, college, department, role })
     try {
-      await axios.post(url, value).then(res => {
-        console.log(res)
-        if (res.data.register) {
-          setproccesing(true)
-          console.log('success');
+      setproccesing(true);
+      const response = await axios.post(url, value, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response);
+      if (response.data.status) {
+        setTimeout(() => {
+          setproccesing(false);
+          setsuccess(response.data.msg);
           setTimeout(() => {
-            setproccesing(false)
-            setsuccess('Register Successfully')
-            setTimeout(() => {
-              setErr('')
-              setsuccess('')
-            }, 4000)
-          }, 4000)
-        } else {
-          setproccesing(true)
-          console.log('unscusssuccess');
+            setErr('');
+            setsuccess('');
+          }, 4000);
+        }, 4000);
+      } else {
+        setTimeout(() => {
+          setproccesing(false);
+          setErr(response.data.msg);
           setTimeout(() => {
-            setproccesing(false)
-            setErr('Student is already exist')
-            setTimeout(() => {
-              setErr('')
-              setsuccess('')
-            }, 4000)
-          }, 4000)
-        }
-      })
+            setErr('');
+            setsuccess('');
+          }, 4000);
+        }, 4000);
+      }
     } catch (error) {
       setErr('Check the network');
+      setproccesing(false);
     }
   };
   if (user && Role === 'admin') {
@@ -183,8 +184,8 @@ function StudentRegistration() {
                   <ErrorMessage className={style.error} name="batch" component="div" />
                 </div>
                 <div className={style.College}>
-                  <label htmlFor='College'>College:</label>
-                  <Field as='select' name='College' onChange={(e) => {
+                  <label htmlFor='college'>College:</label>
+                  <Field as='select' name='college' onChange={(e) => {
                     const selectedCollege = e.target.value;
                     setFieldValue('College', selectedCollege);
                     setFieldValue('Department', ''); // Reset Department when College changes
@@ -194,10 +195,10 @@ function StudentRegistration() {
                       <option key={index} value={college.college_name} >{college.college_name}</option>
                     ))}
                   </Field>
-                  <ErrorMessage className={style.error} name="College" component='div' />
+                  <ErrorMessage className={style.error} name="college" component='div' />
                 </div>
                 <div className={style.Department}>
-                  <label htmlFor='Department'>Department:</label>
+                  <label htmlFor='department'>Department:</label>
                   <Field as='select' name='department'>
                     <option value="">---Select College First---</option>
                     {data && data

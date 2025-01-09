@@ -11,12 +11,12 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
         fname: ModalData.fname,
         lname: ModalData.lname,
         gender: ModalData.gender,
-        diabled: ModalData.disabled,
+        disabled: ModalData.disabled,
         region: ModalData.region,
-        birthdate: ModalData.birth_date,
-        bacth: ModalData.bacth,
-        College: ModalData.college,
-        Department: ModalData.department,
+        birth_date: ModalData.birth_date,
+        batch: ModalData.batch,
+        college: ModalData.college,
+        department: ModalData.department,
 
     }
     const [data, setdata] = useState([]);
@@ -34,11 +34,16 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
             .catch(err => console.log(err));
     }, [])
     const handleUpdate = async (values) => {
-        const { fname, lname, gender, diabled, region, birthdate, bacth, College, Department } = values
-        console.log({ fname, lname, gender, diabled, region, birthdate, bacth, College, Department })
-        await axios.put('http://localhost:5000/updateStudentValues' + ModalData.university_id, { fname, lname, gender, diabled, region, birthdate, bacth, College, Department }).then(res =>
-            console.log(res.data.Message)
-        )
+        const { fname, lname, gender, disabled, region, birth_date, batch, college, department } = values
+        console.log({ fname, lname, gender, disabled, region, birth_date, batch, college, department })
+        const res = await axios.put(`http://localhost:8080/students/${ModalData.university_id}`, { fname, lname, gender, disabled, region, birth_date, batch, college, department })
+        if (res.data.update) {
+            window.alert("update successfully");
+            onRequestClose()
+        } else {
+            window.alert('failed to update')
+            onRequestClose()
+        }
 
     }
     return (
@@ -72,7 +77,7 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
                     onSubmit={handleUpdate}
                 >{({ isvalid, setFieldValue, values }) => (
                     <Form className={styles.updateform}>
-                        <h4 className={style.editHead}> update student Detail:{ModalData.university_id} </h4>
+                        <h4 className={style.editHead}> update student Detail:<spna className='text-info'>{ModalData.university_id} </spna></h4>
                         <div className={styles.fname}>
                             <label htmlFor="FirstName">First Name:</label>
                             <Field type="text" name="fname" ></Field>
@@ -88,15 +93,15 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
                             <Field type="radio" name="gender" value='female'  ></Field> Female
                         </div>
                         <div className={styles.gender}>
-                            <label htmlfor='gender'>Disabled:</label>
-                            <Field type="radio" name="diabled" value='yes'></Field>Yes
-                            <Field type="radio" name="diabled" value='no'  >
+                            <label htmlfor='diablead'>Disabled:</label>
+                            <Field type="radio" name="disabled" value='yes'></Field>Yes
+                            <Field type="radio" name="disabled" value='no'  >
                             </Field>No
                         </div>
                         <div className={styles.region}>
                             <label htmlFor="Region">Region:</label>
                             <Field as='select' name='region' >
-                                <option name='region'>Tigray</option>
+                                <option name='region' >Tigray</option>
                                 <option name='region'>Afar</option>
                                 <option name='region'>Amhara</option>
                                 <option name='region'>Oromia</option>
@@ -111,28 +116,27 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
                         </div>
                         <div className={styles.birthdata}>
                             <label htmlFor='BirthDate'>BirthDate:</label>
-                            <Field type="date" name="birthdate" ></ Field>
+                            <Field type="date" name="birth_date" ></ Field>
                         </div>
                         <div className={styles.birthdata}>
                             <label htmlFor="Bacth">Bacth:</label>
-                            <Field type="number" name="bacth" min="1" max="6" ></Field>
+                            <Field type="number" name="batch" min="1" max="6" ></Field>
                         </div>
                         <div className={styles.col}>
-                            <label htmlFor='College'>College:</label>
-                            <Field as='select' name='College' onChange={(e) => {
+                            <label htmlFor='college'>College:</label>
+                            <Field as='select' name='college' onChange={(e) => {
                                 const selectedCollege = e.target.value;
-                                setFieldValue('College', selectedCollege);
+                                setFieldValue('college', selectedCollege);
                                 setFieldValue('Department', '');
                             }}>
                                 {collegeData && collegeData.map((college, index) => (
                                     <option key={index} value={college.college_name}>{college.college_name}</option>
                                 ))}
                             </Field>
-
                         </div>
                         <div className={styles.dep}>
-                            <label htmlFor='Department'>Department:</label>
-                            <Field as='select' name='Department'>
+                            <label htmlFor='department'>Department:</label>
+                            <Field as='select' name='department'>
                                 {data && data
                                     .filter(dept => dept.college === values.College)
                                     .map((dept, index) => (
@@ -141,7 +145,7 @@ const UpdateStudentInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
                             </Field>
                         </div>
                         <div className={styles.btn}>
-                            <button type="submit" className="btn btn-primary" onClick={onRequestClose.closemodal}>Update</button>
+                            <button type="submit" className="btn btn-primary" >Update</button>
                         </div>
                     </Form>
                 )}</Formik>

@@ -12,6 +12,7 @@ import Dashboard from '../inner_pages/dashboard';
 import DepartmentRegistartion from '../inner_pages/DepartmentRegistartion';
 import DiplayDeletedStudentRecord from '../inner_pages/DiplayDeletedStudentRecord';
 import Displaystudent from "../inner_pages/display_student_information";
+import DisplayCoellge from '../inner_pages/DisplayCoellge';
 import DisplayDeleteTeacherRecord from '../inner_pages/DisplayDeleteTeacherRecord';
 import DisplayDepartment from '../inner_pages/DisplayDepartment';
 import DisplayTeacher from '../inner_pages/DisplayTeacher';
@@ -37,6 +38,7 @@ import Report from '../Teacher/Report';
 import Resourses from '../Teacher/Resourses';
 import Verfication from '../Verfication';
 import ViewMessage from '../ViewMessage';
+
 function RoutersList() {
   return (
     <div>
@@ -70,6 +72,7 @@ function RoutersList() {
         <Route path="/inner_pages/HeadRegistration" element={<HeadRegistration />} />
         <Route path="/inner_pages/CourseRegistration" element={<CourseRegistration />} />
         <Route path="/inner_pages/DiplayDeletedStudentRecord" element={<DiplayDeletedStudentRecord />} />
+        <Route path="/inner_pages/DisplayCoellge" element={<DisplayCoellge />} />
 
         <Route path="/pages/NewUserRegistration"
           element={<NewUserRegistration />} />

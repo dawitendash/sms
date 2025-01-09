@@ -32,15 +32,20 @@ const UpdateTeacherInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
             .then(collegeData => setCOllegeData(collegeData))
             .catch(err => console.log(err));
     }, [])
+
+    console.log(ModalData)
     const updateTeacher = async (values) => {
-        const { fname, lname, gender, birthdata, experince, Level, college, Department, Role } = values;
-        console.log({ fname, lname, gender, birthdata, experince, Level, college, Department, Role })
-        await axios.put('http://localhost:5000/updateTeacherValues' + ModalData.University_Id, { fname, lname, gender, birthdata, experince, Level, college, Department, Role }).then(res => {
-            if (res) {
-                console.log(res.data.Message)
-            }
+        const { fname, lname, gender, BirthData, experince, Level, College, Department, Role } = values;
+        console.log({ fname, lname, gender, BirthData, experince, Level, College, Department, Role })
+        const res = await axios.put(`http://localhost:8080/demo_war_exploded/updateTeacherInfo?id=${ModalData.University_Id}`, { fname, lname, gender, BirthData, experince, Level, College, Department, Role })
+        console.log(res)
+        if (res.data.update) {
+            window.alert("update sucuessfully")
+            onRequestClose()
+        } else {
+            window.alert("failed to update!!")
+            onRequestClose()
         }
-        )
     }
 
 
@@ -75,7 +80,9 @@ const UpdateTeacherInformationModal = ({ isOpen, onRequestClose, ModalData }) =>
                 >
                     {({ isValid, setFieldValue, values }) => (
                         <Form className={styles.updateTeacherInfo}>
-                            <h4 className={styles.editHead}> update Teacher Detail: {ModalData.University_Id}</h4>
+                            <h4 className={styles.editHead}> update Teacher Detail:
+                                <spna className='text-info'>{ModalData.University_Id}</spna>
+                            </h4>
                             <div className={styles.fname}>
                                 <label htmlfor='firstName'>First Name:</label>
                                 <Field type="text" name="fname" ></Field>

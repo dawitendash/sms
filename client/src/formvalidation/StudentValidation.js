@@ -9,8 +9,8 @@ const StudentValidation = Yup.object({
 
     entrance: Yup.number()
         .required('Entrance mark is required')
-        .min(0, 'Entrance mark must be at least 0')
-        .max(700, 'Entrance mark cannot be more than 100'), // You can adjust the max limit based on your needs
+        .min(350, 'Entrance mark must be at least 350')
+        .max(700, 'Entrance mark cannot be more than 700'), // You can adjust the max limit based on your needs
 
     birth_date: Yup.string().required('Birthdate is required')
         .test('age', 'You are too young, please go to high school or elementary', function (value) {

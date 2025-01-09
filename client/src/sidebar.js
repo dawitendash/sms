@@ -10,6 +10,7 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
     const [dropdowncourse, setdropdowncourse] = useState(false);
     const [dropdownteacher, setdropdownteacher] = useState(false);
     const [dropdownstudent, setdropdownstudent] = useState(false);
+    const [dropdownCollege, setdropdownCollege] = useState(false);
     const [dropdowndepartment, setdropdowndepartment] = useState(false);
     const [dropDownRecord, setdropDownRecord] = useState(false);
     const Role = localStorage.getItem('Role');
@@ -43,9 +44,10 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
             setdropdowndepartment(!dropdowndepartment);
         } else if (dropdown === 'record') {
             setdropDownRecord(!dropDownRecord);
+        } else if (dropdown === 'college') {
+            setdropdownCollege(!dropdownCollege)
         }
     };
-
     if (user && Role === 'admin') {
         return (
             <Router>
@@ -74,19 +76,37 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                             <div className='icon close-icon' onClick={opensidebar}>X</div>
                         </div>
                     </div>
-
                     <ul className='sidebar-list'>
                         <li className={Action === 'dashboared' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
                             <Link onClick={() => setAction('dashboared')} to="/inner_pages/dashboard">
                                 <BsFillGrid1X2Fill className='icon' />Dashboard
                             </Link>
                         </li>
-
+                        <li className={Action === 'college' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
+                            <Link onClick={() => setAction('college')} to="/inner_pages/college_registration">
+                                <BsBook className='icon' />College
+                            </Link>
+                            <FaAngleDown onClick={() => toggleDropdown('college')}
+                                className={dropdownCollege ? 'after-click-dropdown-icon' : 'before-click'} />
+                            {dropdownCollege && (
+                                <ul className='dropdown sidebar-list'>
+                                    <li className='dropdown-list-item'>
+                                        <Link to="/inner_pages/DisplayCoellge">
+                                            <BsBook className='icon' />Display College
+                                        </Link>
+                                    </li>
+                                    <li className='dropdown-list-item'>Blocked course</li>
+                                    <li className='dropdown-list-item'>Main course</li>
+                                    <li className='dropdown-list-item'>Minor course</li>
+                                </ul>
+                            )}
+                        </li>
                         <li className={Action === 'Course' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
                             <Link onClick={() => setAction('Course')} to="/inner_pages/CourseRegistration">
                                 <BsBook className='icon' />Course
                             </Link>
-                            <FaAngleDown onClick={() => toggleDropdown('course')} className='dropdown-icon' />
+                            <FaAngleDown onClick={() => toggleDropdown('course')}
+                                className={dropdowncourse ? 'after-click-dropdown-icon' : 'before-click'} />
                             {dropdowncourse && (
                                 <ul className='dropdown sidebar-list'>
                                     <li className='dropdown-list-item'>
@@ -100,12 +120,11 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                                 </ul>
                             )}
                         </li>
-
                         <li className={Action === 'Department' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
                             <Link onClick={() => setAction('Department')} to="/inner_pages/DepartmentRegistartion">
                                 <BsBook className='icon' />Department
                             </Link>
-                            <FaAngleDown onClick={() => toggleDropdown('department')} className='dropdown-icon' />
+                            <FaAngleDown onClick={() => toggleDropdown('department')} className={dropdowndepartment ? 'after-click-dropdown-icon' : 'before-click'} />
                             {dropdowndepartment && (
                                 <ul className='dropdown sidebar-list'>
                                     <li className='dropdown-list-item'>
@@ -123,7 +142,8 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                             <Link onClick={() => setAction('Student')} to="/inner_pages/student_registration">
                                 <BsPerson className='icon' />Student
                             </Link>
-                            <FaAngleDown onClick={() => toggleDropdown('student')} className='dropdown-icon' />
+                            <FaAngleDown onClick={() => toggleDropdown('student')}
+                                className={dropdownstudent ? 'after-click-dropdown-icon' : 'before-click'} />
                             {dropdownstudent && (
                                 <ul className='dropdown sidebar-list'>
                                     <li className='dropdown-list-item'>
@@ -136,12 +156,12 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                                 </ul>
                             )}
                         </li>
-
                         <li className={Action === 'Teacher' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
                             <Link onClick={() => setAction('Teacher')} to="/inner_pages/TeacherRegistartion">
                                 <BsFillPeopleFill className='icon' />Teacher
                             </Link>
-                            <FaAngleDown onClick={() => toggleDropdown('teacher')} className='dropdown-icon' />
+                            <FaAngleDown onClick={() => toggleDropdown('teacher')}
+                                className={dropdownteacher ? 'after-click-dropdown-icon ' : 'before-click '} />
                             {dropdownteacher && (
                                 <ul className='dropdown sidebar-list'>
                                     <li className='dropdown-list-item'>
@@ -154,18 +174,17 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                                 </ul>
                             )}
                         </li>
-
                         <li className={Action === 'Anouncement' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
-                            <Link onClick={() => setAction('Anouncement')} to="/inner_pages/Anouncement">
+                            <Link onClick={() => setAction('Anouncement')} to="/inner_pages/Announcement">
                                 <BsMessenger className='icon' />Anouncement
                             </Link>
                         </li>
-
                         <li className={Action === 'RecordDetail' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
-                            <Link onClick={() => setAction('RecordDetail')} to="/inner_pages/TeacherRegistartion">
+                            <Link onClick={() => setAction('RecordDetail')} to="/inner_pages/DisplayDeleteTeacherRecord">
                                 <FaRecordVinyl className='icon' />Record Detail
                             </Link>
-                            <FaAngleDown onClick={() => toggleDropdown('record')} className='dropdown-icon' />
+                            <FaAngleDown onClick={() => toggleDropdown('record')}
+                                className={dropDownRecord ? 'after-click-dropdown-icon' : 'before-click'} />
                             {dropDownRecord && (
                                 <ul className='dropdown sidebar-list'>
                                     <li className='dropdown-list-item'>
@@ -181,18 +200,15 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
                                 </ul>
                             )}
                         </li>
-
                         <li className={Action === 'Setting' ? 'sidebar-list-item active' : 'sidebar-list-item'}>
                             <Link onClick={() => setAction('Setting')} to="/inner_pages/ChangePassword">
                                 <BsFillGearFill className='icon' />Setting
                             </Link>
                         </li>
-
                         <li className='sidebar-list-item'>
                             <Link onClick={() => {
-                                localStorage.removeItem('username');
-                                localStorage.removeItem('Role');
-                                window.location.reload();
+                                localStorage.clear();
+                                window.reload();
                             }} to="/">
                                 <FaSignOutAlt className='icon' />Logout
                             </Link>
@@ -206,5 +222,4 @@ function Sidebar({ opensidebartoggle, opensidebar }) {
         return null;
     }
 }
-
 export default Sidebar;

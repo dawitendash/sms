@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { BsFillBellFill, BsJustify, BsPerson, BsSearch } from 'react-icons/bs';
 import { FaAngleDown } from 'react-icons/fa';
 import './App.css';
@@ -22,7 +22,14 @@ function Header({ opensidebar }) {
   }
   const user = localStorage.getItem('username');
   const Role = localStorage.getItem('Role')
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    fetch('http://localhost:5000/countNotificatin').then(res => res.json()).then((data) => {
+      setCount(data.count);
+    })
+  }, [])
   return (
+
 
     <header className='header' >
       <div className='menu-icon'>
@@ -31,16 +38,24 @@ function Header({ opensidebar }) {
       <div className='header-logo'>
         <img src={woldia} alt='woldia-logo'></img>
       </div>
+
       <div className='header-left'>
         <input type='text' placeholder='search'></input>
         <BsSearch className='icon' />
       </div>
       <div className='header-right'>
         <span className='notification'>
-          <BsFillBellFill className='icon' /> <FaAngleDown onClick={opennotify} className='icon' /> <span className='count_notification'>1</span>
+          <BsFillBellFill className='icon' />
+          <FaAngleDown onClick={opennotify} className='icon' />
+          <span className='count_notification'>
+            {count}
+          </span>
         </span>
         <span className='profile btn btn-primary'>
-          <span className='role'><BsPerson />{Role.toLocaleUpperCase()}</span>
+          <span className='role'>
+            <BsPerson />
+            {Role.toLocaleUpperCase()}
+          </span>
           <FaAngleDown onClick={seeuserprofile} className='icon' />
         </span>
         <UserDropDownInformation

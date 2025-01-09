@@ -10,7 +10,7 @@ function MakeGrade() {
     const Navigate = useNavigate();
     const [data, setdata] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/teacher/displaystudentforgrade`)
+        fetch(`http://localhost:8080/demo_war_exploded/student`)
             .then(res => res.json())
             .then((data) => {
                 if (Array.isArray(data)) {

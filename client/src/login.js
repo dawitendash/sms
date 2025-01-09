@@ -5,79 +5,71 @@ import { FaInfoCircle, FaLock, FaSignInAlt, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Loginvalidation } from "./formvalidation/Loginvalidation";
 import style from "./Styles/login.module.css";
+
 const initialValue = {
   username: "",
   password: "",
   remember: false,
 };
+
 function Login() {
-  localStorage.removeItem('username')
-  localStorage.removeItem('Role')
-  const [loading, setloading] = useState(false); // for loading the page when it
-  const [err, seterr] = useState('');// for set the error in state when it is occurs
-  const Navigate = useNavigate(); // to navigate the other page  
-  const loginsubmit = (values) => {
-    //axios.defaults.withCredentials = true;
-    setloading(true)
-    setTimeout(() => {
-      setloading(false);
-      const { username, password } = values;
-      console.log({ username, password });
-      const url = "http://localhost:5000/";
-      axios.post(
-        url, values
-      ).then(res => {
-        console.log(res)
-        console.log(res.data.Data[0].fname)
-        if (res.data.Login && res.data.isAdmin) {
-          Navigate('/Verfication')
-          console.log(`Dear ${res.data.Data[0].fname} This is otp code for you : ` + res.data.otp)
-          localStorage.setItem('username', username);
-          localStorage.setItem('Role', res.data.Role);
-          localStorage.setItem('fname', res.data.Data[0].fname);
-          localStorage.setItem('lname', res.data.Data[0].lname);
-          localStorage.setItem('email', res.data.Data[0].email);
-        } else if (res.data.Login && res.data.isStudent) {
-          console.log(res.data)
-          Navigate('/Verfication');
-          console.log(`Dear ${res.data.Data[0].fname} This is otp code for you : ` + res.data.otp)
-          localStorage.setItem('username', username);
-          localStorage.setItem('Role', res.data.Role);
-          localStorage.setItem('fname', res.data.Data[0].fname);
-          localStorage.setItem('lname', res.data.Data[0].lname);
-          localStorage.setItem('email', res.data.Data[0].email);
-          localStorage.setItem('department', res.data.department);
+  localStorage.clear();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const loginsubmit = async (values) => {
+    setLoading(true);
+    setError("");
+
+    const { username, password } = values;
+    const url = "http://localhost:8080/demo_war_exploded/Login";
+
+    try {
+      const res = await axios.post(url, { username, password }, {
+        method: 'POST',
+        credentials: 'include', // Include cookies in the request
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },);
+      console.log(res);
+      console.log(res.data.user.Role);
+      console.log(res.data.status);
+      console.log(res.data.user)
+      if (res.data.status) {
+        console.log("this is enetered")
+        localStorage.setItem("username", res.data.user.username);
+        localStorage.setItem("Role", res.data.user.Role);
+        localStorage.setItem("fname", res.data.user.fname);
+        localStorage.setItem("lname", res.data.user.lname);
+        localStorage.setItem("email", res.data.user.email);
+        if (res.data.user.isStudent) {
+          localStorage.setItem("department", res.data.user.department);
+          navigate("./Verfication");
+        } else if (res.data.user.isTeacher || res.data.user.isHead) {
+          localStorage.setItem("department", res.data.user.department);
+          sessionStorage.setItem("id", res.data.user.id);
+          navigate("./Verfication");
+        } else if (res.data.user.isAdmin) {
+          navigate("./Verfication");
         }
-        else if (res.data.Login && res.data.isTeacher) {
-          Navigate('/Verfication')
-          console.log(`Dear ${res.data.Data[0].fname} This is otp code for you : ` + res.data.otp)
-          localStorage.setItem('username', username);
-          localStorage.setItem('Role', res.data.Role);
-          localStorage.setItem('fname', res.data.Data[0].fname);
-          localStorage.setItem('lname', res.data.Data[0].lname);
-          localStorage.setItem('email', res.data.Data[0].email);
-          localStorage.setItem('department', res.data.department);
-          sessionStorage.setItem('id', res.data.id)
-        }
-        else if (res.data.Login && res.data.isHead) {
-          Navigate('/Verfication')
-          console.log(`Dear ${res.data.Data[0].fname} This is otp code for you : ` + res.data.otp)
-          localStorage.setItem('username', username);
-          localStorage.setItem('Role', res.data.Role);
-          localStorage.setItem('fname', res.data.Data[0].fname);
-          localStorage.setItem('lname', res.data.Data[0].lname);
-          localStorage.setItem('email', res.data.Data[0].email);
-          localStorage.setItem('department', res.data.department);
-        } else {
-          seterr('Please enter valid username and password');
-        }
-      }).catch((err) => {
-        if (!err?.response || err.response.status === 500) {
-          Navigate('/ErrorPage/ErrorPage')
-          console.log(err)
-        }
-      })
-    }, 2000)
+
+        console.log(`Dear ${res.data.user.fname}, this is your OTP: ${res.data.user.otp}`);
+      } else {
+        setError("Invalid username or password.");
+      }
+    } catch (err) {
+      if (!err.response || err.response.status === 500) {
+        setError("Server is not available due to maintenance.");
+      } else if (err.response.status === 404) {
+        setError("Login failed. Please check your credentials.");
+      } else {
+        navigate("/ErrorPage/ErrorPage");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -90,9 +82,10 @@ function Login() {
         {({ isSubmitting }) => (
           <Form className={style.login_form}>
             <div>
-              {err && (
+              {error && (
                 <p className="alert alert-danger w-1" id={style.errors}>
-                  <FaInfoCircle className='m-2' style={{ color: 'black' }} />{err}
+                  <FaInfoCircle className="m-2" style={{ color: "black" }} />
+                  {error}
                 </p>
               )}
               <h2>
@@ -100,53 +93,39 @@ function Login() {
                 <FaSignInAlt className={style.icon} />
               </h2>
               <div className={style.username}>
-                <label
-                  htmlFor="username">Username: </label>
-                <Field name="username" type="text" placeholder='username' />
+                <label htmlFor="username">Username:</label>
+                <Field name="username" type="text" placeholder="Username" />
                 <FaUser className={style.InputIcons} />
-                <ErrorMessage
-                  className={style.error} name="username" component="div" />
+                <ErrorMessage className={style.error} name="username" component="div" />
               </div>
               <div className={style.password}>
                 <label htmlFor="password">Password:</label>
-                <Field type="password" name="password" placeholder='password' />
+                <Field type="password" name="password" placeholder="Password" />
                 <FaLock className={style.InputIcons} />
-                <ErrorMessage
-                  className={style.error} name="password" component="div" />
+                <ErrorMessage className={style.error} name="password" component="div" />
               </div>
               <div className={style.checkbox}>
                 <Field type="checkbox" name="remember" />
-                <label>Remember Me.</label>
-                <Link
-                  className={style.forget_password_tag}
-                  to="/pages/forget_password"
-                >
+                <ErrorMessage name="remember" component="div" className={style.error} />
+                <label>Remember Me</label>
+                <Link className={style.forget_password_tag} to="/pages/forget_password">
                   Forget Password?
                 </Link>
-                <ErrorMessage
-                  id={style.block_meg}
-                  className={style.error} name="remember" component="div" />
               </div>
               <div className={style.button}>
                 <button type="submit" name="submit" disabled={loading}>
-                  {
-                    loading ? (
-                      <>
-                        <span className='loader'></span>
-                        Please wait...
-                      </>
-                    ) : (
-                      'Login'
-                    )
-                  }
+                  {loading ? (
+                    <>
+                      <span className="loader"></span> Please wait...
+                    </>
+                  ) : (
+                    "Login"
+                  )}
                 </button>
               </div>
               <div className={style.have_no_account}>
                 <span>Don't have an account? </span>
-                <Link
-                  className={style.registration_tag}
-                  to="/pages/NewUserRegistration"
-                >
+                <Link className={style.registration_tag} to="/pages/NewUserRegistration">
                   Register
                 </Link>
               </div>
@@ -157,4 +136,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;

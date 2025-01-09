@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaPen, FaSort, FaTrash } from 'react-icons/fa';
 import UpdateDepartmentInformationModal from '../Modals/UpdateDepartmentInformationModal';
@@ -31,7 +32,7 @@ function DisplayDepartment() {
       console.log("Fetching data for page:", pages);
 
       try {
-        const response = await fetch(`http://localhost:5000/inner_pages/DisplayDepartment?page=${pages}`);
+        const response = await fetch(`http://localhost:8080/demo_war_exploded/displayDepartment?page=${pages}`);
         const data = await response.json();
 
         console.log("Data received:", data);
@@ -71,14 +72,24 @@ function DisplayDepartment() {
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(`Do you want to delete ${id}?`)
     if (confirmDelete) {
-      await fetch('http://localhost:5000/deleteDepartment' + id, { method: 'DELETE' }).then(res => {
-        const filterdata = data.filter(dep => dep.department_id !== id);
-        setData(filterdata);
-        setMessage('Deleted Successfully!!');
-        setTimeout(() => {
-          setMessage('')
-        }, 3000)
-      })
+      try {
+        const res = await axios.delete(`http://localhost:8080/demo_war_exploded/deleteDepartmentInfo?id=${id}`, { method: 'DELETE' })
+        if (res) {
+          const filterdata = data.filter(dep => dep.department_id !== id);
+          setData(filterdata);
+          setMessage('Deleted Successfully!!');
+          setTimeout(() => {
+            setMessage('')
+          }, 3000)
+        } else {
+          setMessage('delete canceled')
+          setTimeout(() => {
+            setMessage('')
+          }, 2000)
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
   return (
@@ -122,7 +133,7 @@ function DisplayDepartment() {
                 <td colSpan='7'>There is no record Yet!!</td>
               </tr>
             ) :
-              (data.map((d, i) => (
+              (searchDepartment.map((d, i) => (
                 <tr key={i}>
                   <td >{d.department_name}</td>
                   <td >{d.department_id}</td>

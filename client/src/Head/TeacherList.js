@@ -22,7 +22,7 @@ function DisplayTeacherInDepartment() {
   const [searchItem, setSearchItem] = useState('');
   const [data, setdata] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/inner_pages/DisplayTeacher')
+    fetch('http://localhost:8080/demo_war_exploded/displayTeacher')
       .then(res => res.json())
       .then(data => setdata(data))
       .catch(err => console.log(err));

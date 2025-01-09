@@ -27,31 +27,35 @@ function DepartmentRegistartion() {
       .catch(err => console.log(err));
   }, [])
   const handleSubmit = async (values) => {
-    const url = "http://localhost:5000/inner_pages/DepartmentRegistartion";
+    const url = "http://localhost:8080/demo_war_exploded/displayDepartment";
     const { dep_name, dep_id, college, max_capacity, min_capacity, total_course, total_teacher, location } = values;
     console.log({ dep_name, dep_id, college, max_capacity, min_capacity, total_course, total_teacher, location })
+    setproccesing(true);
     try {
-      await axios.post(url, values).then(res => {
-        if (res.data.register) {
-          setproccesing(true);
-          setTimeout(() => {
-            setproccesing(false)
-            setsuccess('Register Successfully')
-            setTimeout(() => {
-              setsuccess('')
-            }, 2000)
-          }, 4000)
-        } else {
-          setproccesing(true);
-          setTimeout(() => {
-            setproccesing(false)
-            setErr('Department is already exist')
-            setTimeout(() => {
-              setErr('')
-            }, 4000)
-          }, 4000)
+      const res = await axios.post(url, values, {
+        headers: {
+          "Content-Type": "application/json",
         }
-      })
+      }
+      )
+      console.log(res)
+      if (res.data.register) {
+        setTimeout(() => {
+          setproccesing(false)
+          setsuccess('Register Successfully')
+          setTimeout(() => {
+            setsuccess('')
+          }, 2000)
+        }, 4000)
+      } else {
+        setTimeout(() => {
+          setproccesing(false)
+          setErr('Department is already exist')
+          setTimeout(() => {
+            setErr('')
+          }, 4000)
+        }, 4000)
+      }
     } catch (error) {
       setErr('Check the network');
     }

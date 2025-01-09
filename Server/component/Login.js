@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const nodeMailer = require('nodemailer');
 let otpStore = {};
 router.post('/', (req, res) => {
-    const sql = "SELECT University_Id, fname, lname, email  FROM useraccount WHERE username = ? and password = ?";
+    const sql = "SELECT University_Id, fname, lname, email,status  FROM useraccount WHERE username = ? and password = ?";
     db.query(sql, [req.body.username, req.body.password], (err, data) => {
         if (err) {
             console.error('Error fetching data from MySQL:', err);
@@ -67,6 +67,7 @@ router.post('/', (req, res) => {
                 return res.json({ Login: false });
             }
         }
+
     });
 
 
@@ -81,6 +82,8 @@ router.post('/login/verifyOtp', (req, res) => {
     console.log(userotp);
     console.log("=================")//this diplay the otp that generate from the server
     console.log(otpStore[email.email]);
+    const otpExpiredDate = Date.now() + 1 * 60 * 1000;
+    console.log(otpExpiredDate);
     if (userotp.toString() === otpStore[email.email].toString()) {
         delete otpStore[email.email];
         return res.json({ verify: true }) //make the response true for navigate to another page

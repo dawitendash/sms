@@ -40,29 +40,29 @@ function CourseRegistration() {
     const handleSubmit = async (values) => {
         const { CourseTitle, CourseCode, CreditHour, Lab, Tutorial, ActiveBatch, ActiveSemister, College, Department } = values
         console.log({ CourseTitle, CourseCode, CreditHour, Lab, Tutorial, ActiveBatch, ActiveSemister, College, Department })
-        const url = 'http://localhost:5000/CourseRegistration'
+        const url = 'http://localhost:8080/demo_war_exploded/course'
+        setproccesing(true);
         try {
-            await axios.post(url, values).then(res => {
-                if (res.data.register) {
-                    setproccesing(true);
+            const res = await axios.post(url, values)
+            console.log(res);
+            if (res.data.register) {
+                setTimeout(() => {
+                    setproccesing(false)
+                    setsuccess('Register Successfully')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setsuccess('Register Successfully')
-                        setTimeout(() => {
-                            setsuccess('')
-                        }, 2000)
-                    }, 4000)
-                } else {
-                    setproccesing(true);
+                        setsuccess('')
+                    }, 2000)
+                }, 4000)
+            } else {
+                setproccesing(true);
+                setTimeout(() => {
+                    setproccesing(false)
+                    setErr('Course is already exist')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setErr('Course is already exist')
-                        setTimeout(() => {
-                            setErr('')
-                        }, 4000)
+                        setErr('')
                     }, 4000)
-                }
-            })
+                }, 4000)
+            }
         } catch (error) {
             setErr('Check the network');
         }

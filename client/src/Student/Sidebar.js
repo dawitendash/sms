@@ -207,7 +207,7 @@ function StuedntSidebar({ opensidebartoggle, opensidebar }) {
                     </hr>
                     <li
                         className='sidebar-list-item' onClick={() => {
-                            localStorage.removeItem('username');
+                            localStorage.clear(); 
                             window.location.reload()
                         }} >
                         <Link>

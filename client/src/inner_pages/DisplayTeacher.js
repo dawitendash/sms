@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import UpdateTeacherInformationModal from '../Modals/UpdateTeacherInformationModal';
 import style from '../Styles/display_student_iformation.module.css';
 
-
 function DisplayTeacher() {
 
   const Navigate = useNavigate();
@@ -28,7 +27,7 @@ function DisplayTeacher() {
     setmodalisopen(false)
   }
   useEffect(() => { // fecth the data from the database 
-    fetch('http://localhost:5000/inner_pages/DisplayTeacher')
+    fetch('http://localhost:8080/demo_war_exploded/displayTeacher')
       .then(res => res.json())
       .then(data => setdata(data))
       .catch(err => console.log(err));
@@ -50,19 +49,26 @@ function DisplayTeacher() {
 
   }
 
-  const handleDelete = async (id) => {
-    const confirm = window.confirm(`Do you want to delete ${id} ?`);
+  const handleDelete = (id) => {
+    const confirm = window.confirm(`Do you want to delete : ${id} ?`);
     console.log(id)
     if (confirm) {
-      await fetch('http://localhost:5000/inner_pages/DeleteTeacher' + id, { method: 'DELETE' })
-      Navigate('/inner_pages/DisplayTeacher')
-      const filetrTheDeleteTecaher = data.filter(teacher => teacher.University_Id === id)
-      deletedTeacherRecord(id)
-      setdata(filetrTheDeleteTecaher)
-      setdeleteMessge('Delete succussfully')
+      const res = axios.delete(`http://localhost:8080/demo_war_exploded/deleteTeacherInfo?id=${id}`, { method: 'DELETE' })
+      console.log(res)
+      if (res) {
+        const filetrTheDeleteTecaher = data.filter(teacher => teacher.University_Id === id)
+        deletedTeacherRecord(id)
+        setdata(filetrTheDeleteTecaher)
+        setdeleteMessge('Delete succussfully')
+        setTimeout(() => {
+          setdeleteMessge('')
+        }, 3000);
+      }
+    } else {
+      setdeleteMessge("delete canceled!!")
       setTimeout(() => {
-        setdeleteMessge('')
-      }, 3000);
+        setdeleteMessge('');
+      }, 2000);
     }
 
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { FaEnvelope, FaIdCard, FaLock, FaPhone, FaUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import signupValidation from '../formvalidation/new_user_registration_validation';
 import style from '../Styles/new_user_registration.module.css';
 const initialValues = {
@@ -16,43 +16,34 @@ const initialValues = {
   agree: false,
 };
 function NewUserRegistration() {
-  const Navigate = useNavigate();
   const [proccecing, setproccesing] = useState(false);
   const [err, setErr] = useState('');
   const handleSubmit = async (values) => {
     const { firstName, lastName, idnumber, email, phone, userName, password } = values;
     console.log({ firstName, lastName, idnumber, email, phone, userName, password });
-    const url = "http://localhost:5000/pages/NewUserRegistration";
-    await axios.post(url, values).then(res => {
-      if (res.data.idexist) {
+    const url = "http://localhost:8080/demo_war_exploded/NewUserRegistartion";
+    try {
+      const res = await axios.post(url, values)
+      console.log(res);
+      if (res.data.register) {
         setproccesing(true)
         setTimeout(() => {
           setproccesing(false)
-          setErr('Id number is not found');
         }, 3000)
       } else {
-        if (res.data.message) {
-          setproccesing(true)
-          setTimeout(() => {
-            setproccesing(false)
-            setErr('Username or email already exist');
-          }, 3000)
-          console.log('username exist');
-        } else {
-          console.log(res)
-          Navigate('/');
-        }
+        console.log("errr")
+        setErr(res.data.msg)
       }
-    }).catch(err => {
 
-      if (!err?.response) {
-        Navigate('/ErrorPage/ErrorPage')
+    } catch (err) {
+      if (!err?.response || err.response.status === 500) {
+        setErr('server is not avaliable due to maintenace')
       } else if (err.response.status === 404) {
-        Navigate('/ErrorPage/ErrorPage')
-      } else if (err.reponse.status === 500) {
-        Navigate('/ErrorPage/ErrorPage')
+        setErr('Registration Failed ')
+      } else {
+        navigator('/ErrorPage/ErrorPage')
       }
-    });
+    };
   };
   return (
     <Formik

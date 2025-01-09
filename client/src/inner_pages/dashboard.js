@@ -24,28 +24,29 @@ function Dashboard() {
     const fetchrow = async () => {
       try {
         //for student dcount
-        const studentresponse = await fetch('http://localhost:5000/inner_pages/dasboard')
+        const studentresponse = await fetch('http://localhost:8080/demo_war_exploded/countStudentNumber')
         if (!studentresponse.ok) {
           console.log('error');
         }
         const data = await studentresponse.json();
         setstudentcount(data.count)
         //for teacher count
-        const teacherresponse = await fetch(`http://localhost:5000/src/`)
+        const teacherresponse = await fetch(`http://localhost:8080/demo_war_exploded/countTeacherNumber`)
         if (!teacherresponse.ok) {
           console.log('error');
         }
         const data1 = await teacherresponse.json();
+        console.log(data1)
         setteachercount(data1.count)
         //for faculty count
-        const facultyresponse = await fetch('http://localhost:5000/inner_pages/DepartmentRegistartion')
+        const facultyresponse = await fetch('http://localhost:8080/demo_war_exploded/countFacultyNumber')
         if (!facultyresponse.ok) {
           console.log('error');
         }
         const facultydata = await facultyresponse.json();
         setfacultycount(facultydata.count)
         //for department counter
-        const departmentresponse = await fetch('http://localhost:5000/src/login')
+        const departmentresponse = await fetch('http://localhost:8080/demo_war_exploded/countDepartmentNumber')
         if (!departmentresponse.ok) {
           console.log('error');
         }
@@ -56,7 +57,7 @@ function Dashboard() {
       }
     }
     fetchrow()
-  }, []) 
+  }, [])
   const data = [
     {
       name: '2004',
@@ -115,7 +116,6 @@ function Dashboard() {
     return (
       <>
         <main className='main-container' >
-
           <div className='main-title'>
             <span>Today: {dayname + formatdate} </span>
           </div>

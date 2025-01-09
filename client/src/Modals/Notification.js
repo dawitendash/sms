@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import style from '../linkafter.module.css';
 import ViewMessage from '../ViewMessage';
 Modal.setAppElement('#root');
+
 const Notification = ({ isOpen, onRequestClose, user }) => {
     const [data, setData] = useState([]);
     useEffect(() => {

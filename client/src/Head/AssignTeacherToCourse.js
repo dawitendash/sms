@@ -14,71 +14,80 @@ function AssignTeacherToCourse() {
     const [assignedTeacher, setAssignedTeacher] = useState([]);
     const department = localStorage.getItem('department')
     useEffect(() => {
-        fetch('http://localhost:5000/Teacher/selectTeacherId')
+        fetch(`http://localhost:8080/demo_war_exploded/fetchTeacherByDwprtment?id=${department}`)
             .then(res => res.json())
-            .then(data => {
-                console.log('Teacher IDs:', data); // Log the response
+            .then(data => {  // Log the response
                 if (Array.isArray(data)) {
                     setTeacherIds(data);
                 } else {
                     console.error('Expected an array of teacher IDs');
                 }
-            })
-            .catch(err => console.log(err));
-    }, []);
+            }).catch(err => console.log(err));
+    }, [department]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/Department/Course')
-            .then(res => res.json())
-            .then(data => {
-                console.log('Courses:', data); // Log the response
-                if (Array.isArray(data)) {
-                    setCourses(data);
-                } else {
-                    console.error('Expected an array of courses');
+        fetch(`http://localhost:8080/demo_war_exploded/fetchCourseByDEpartment?id=${department}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                return response.json();
             })
-            .catch(err => console.log(err));
-    }, []);
+            .then(data => {
+                console.log("Courses:", data);
+                setCourses(data)
+            })
+            .catch(error => {
+                console.error("Error fetching courses:", error);
+            });
+    }, [department])
+
     useEffect(() => {
-        fetch('http://localhost:5000/head/DisplayAssignTeacher')
+        fetch('http://localhost:8080/demo_war_exploded/AssignTeacher')
             .then(res => res.json())
             .then(assignedTeacher => setAssignedTeacher(assignedTeacher))
             .catch(err => console.log(err));
     }, [])
-    const filteredCourse = courses.filter(d => d.department_id === department)
-    console.log(department)
-    console.log(filteredCourse)
     const handleSubmit = async (values) => {
         const { TeacherId, Course } = values;
         console.log({ TeacherId, Course });
-        const URL = 'http://localhost:5000/head/TeacherAssign';
+        const URL = 'http://localhost:8080/demo_war_exploded/AssignTeacher';
+        setproccesing(true);
         try {
-            await axios.post(URL, { TeacherId, Course }).then(res => {
-                if (res.data.Assigned) {
-                    setproccesing(true);
+            const res = await axios.post(URL, { TeacherId, Course })
+            if (res.data.Assigned) {
+                console.log(res)
+                setTimeout(() => {
+                    setproccesing(false)
+                    setsuccess('Assign Successfully')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setsuccess('Assign Successfully')
-                        setTimeout(() => {
-                            setsuccess('')
-                        }, 2000)
-                    }, 4000)
-                } else {
-                    setproccesing(true);
+                        setsuccess('')
+                    }, 2000)
+                }, 4000)
+            } else {
+                setproccesing(true);
+                setTimeout(() => {
+                    setproccesing(false)
+                    setErr('Teacher is Already Assigned  ')
                     setTimeout(() => {
-                        setproccesing(false)
-                        setErr('Teacher is Already Assigned  ')
-                        setTimeout(() => {
-                            setErr('')
-                        }, 4000)
+                        setErr('')
                     }, 4000)
-                }
-            })
+                }, 4000)
+            }
         } catch (error) {
             setErr('Check the network');
             console.log(error)
         }
+    }
+    const [modalisopen, setmodalisopen] = useState(false);
+    const [ModalData, setModalData] = useState('')
+    const openmodal = (d) => {
+        setModalData(d)
+        setmodalisopen(true)
+
+    }
+    const closemodal = () => {
+        setmodalisopen(false)
     }
     return (
         <>
@@ -126,7 +135,7 @@ function AssignTeacherToCourse() {
                                     <label htmlFor='Course'>Course:</label>
                                     <Field as='select' name='Course'>
                                         <option value="">---Select Course Title---</option>
-                                        {Array.isArray(filteredCourse) && filteredCourse.map((course, i) => (
+                                        {Array.isArray(courses) && courses.map((course, i) => (
                                             <option key={i} value={course.course_title}>{course.course_title}</option>
                                         ))}
                                     </Field>
@@ -164,15 +173,21 @@ function AssignTeacherToCourse() {
                                         <button
                                             type="button"
                                             className="btn btn-primary rounded-0"
+                                            onClick={() => openmodal(d.teacher_id)}
                                         > update</button>
                                     </td>
-
                                 </tr>
                             ))}
                         </tbody>
 
                     </table>
+
                 </div>
+                <updateAssignTeacher
+                    isOpen={modalisopen}
+                    onRequestClose={closemodal}
+                    ModalData={ModalData}
+                />
             </div>
         </>
     );
